@@ -1,30 +1,19 @@
 import express from 'express';
+// const airplaneRoutes = require('./routes/aireplane_routes.js');
+import airplaneRoutes from './routes/airplane_routes.js';
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true })); // for form data
 app.use(express.json()); // for JSON
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.use('/api/airplanes', airplaneRoutes);
 
-app.get('/airplane/', (req, res) => {
-  res.json({
-    model: 'F-35 Lightening II',
-    stealth: true,
-    workingCondition: true
-  });
-});
+// http://localhost:3000/api/query/?name=hello
+// app.get('/api/query', (req, res) => {
+//   const name = req.query.name.toLowerCase();
 
-app.get('/yummy/:food', (req, res) => {
-  console.log('req.params: ', req.params);
-  res.send(`Yes. ${req.params.food} is delicious!`);
-});
-
-app.post('/', (req, res) => {
-  res.send('Post received');
-});
+//   res.json(name);
+// });
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
