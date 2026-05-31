@@ -1,26 +1,21 @@
 import airplanes from '../airplane_info.js';
 
 function airplaneFilter(searchPlane) {
-  console.log(searchPlane);
-  let match = airplanes.filter((airplane) => {
+  let match = airplanes.find((airplane) => {
     return airplane.name === searchPlane;
   });
 
-  if (match.length === 0) {
-    match = airplanes.filter((airplane) => {
-      return airplane.id === searchPlane;
+  if (!match) {
+    match = airplanes.find((airplane) => {
+      return airplane.id.replace('-', '') === searchPlane.replace('-', '');
     });
   }
 
-  // TODO match airplanes loosely. (No hyphens)
-
-  return match;
+  return match || { id: 'not found' };
 }
 
 function getAirplane(req, res) {
-  // console.log(req.params);
   const findPlane = airplaneFilter(req.params.airplane);
-  console.log(findPlane);
   res.send(findPlane);
 }
 
